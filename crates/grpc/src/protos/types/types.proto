@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+package types;
+
+message H128 {
+    uint64 hi = 1;
+    uint64 lo = 2;
+}
+
+message H160 {
+    types.H128 hi = 1;
+    uint32 lo = 2;
+}
+
+message H256 {
+    types.H128 hi = 1;
+    types.H128 lo = 2;
+}
+
+message PbU256 {
+    bytes data = 1;
+}
+
+message SupportedEntryPoint {
+    types.H160 ep = 1;
+}
+
+message UserOperation {
+    types.H256 hash = 1;
+    UserOperationSigned uo = 2;
+}
+
+message UserOperationSigned {
+    types.H160 sender = 1;
+    PbU256 nonce = 2;
+    bytes init_code = 3;
+    bytes call_data = 4;
+    PbU256 call_gas_limit = 5;
+    PbU256 verification_gas_limit = 6;
+    PbU256 pre_verification_gas = 7;
+    PbU256 max_fee_per_gas = 8;
+    PbU256 max_priority_fee_per_gas = 9;
+    bytes paymaster_and_data = 10;
+    bytes signature = 11;
+}
+
+enum ReputationStatus {
+    OK = 0;
+    THROTTLED = 1;
+    BANNED = 2;
+}
+
+message ReputationEntry {
+    types.H160 addr = 1;
+    uint64 uo_seen = 2;
+    uint64 uo_included = 3;
+    ReputationStatus stat = 4;
+}
+
+message GetChainIdResponse {
+    uint64 chain_id = 1;
+}
+
+message GetSupportedEntryPointsResponse {
+    repeated H160 eps = 1;
+}
+
+message TransactionReceipt {
+    H160 to = 1;
+    H160 from = 2;
+    H160 contract_address = 3;
+    uint64 transaction_index = 4;
+    H256 root = 5;
+    PbU256 gas_used = 6;
+    string logs_bloom = 7;
+    H256 block_hash = 8;
+    H256 transaction_hash = 9;
+    repeated Log logs = 10;
+    uint64 block_number = 11;
+    PbU256 cumulative_gas_used = 12;
+    PbU256 effective_gas_price = 13;
+    uint64 status = 14;
+}
+
+message Log {
+    uint64 block_number = 1;
+    H256 block_hash = 2;
+    uint64 transaction_index = 3;
+    bool removed = 4;
+    H160 address = 5;
+    bytes data = 6;
+    repeated H256 topics = 7;
+    H256 transaction_hash = 8;
+    PbU256 log_index = 9;
+}
+
+message StakeInfo {
+    H160 address = 1;
+    uint64 stake = 2;
+    uint64 unstake_delay = 3;
+}
+
+message StorageSlots {
+    map<string, string> slots = 1;
+}
+
+message StorageMap {
+    map<string, string> root_hashes = 1;
+    map<string, StorageSlots> slots = 2;
+}

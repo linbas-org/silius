@@ -1,0 +1,57 @@
+[package]
+name = "silius-grpc"
+version = { workspace = true }
+authors = { workspace = true }
+edition = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+rust-version = { workspace = true }
+keywords = { workspace = true }
+categories = { workspace = true }
+description = "Account abstraction (ERC-4337) gRPC modules"
+homepage = "https://github.com/silius-rs/silius/tree/main/crates/grpc"
+
+[dependencies]
+# workspace dependencies
+silius-bundler = { workspace = true }
+silius-contracts = { workspace = true }
+silius-mempool = { workspace = true }
+silius-metrics = { workspace = true }
+silius-p2p = { workspace = true }
+silius-primitives = { workspace = true }
+
+# eth
+alloy-chains = { workspace = true }
+ethers = { workspace = true }
+
+# grpc
+hyper = { version = "0.14.20" }
+prost = "0.12.3"
+tonic = { version = "0.10.2", default-features = false, features = [
+    "codegen",
+    "prost",
+    "transport",
+] }
+tower = { version = "0.4.13" }
+
+# async
+async-trait = { workspace = true }
+futures = { workspace = true }
+parking_lot = { workspace = true }
+
+# tokio
+tokio = { workspace = true }
+
+# misc
+arrayref = "0.3.7"
+expanded-pathbuf = { workspace = true }
+eyre = { workspace = true }
+metrics = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+
+[build-dependencies]
+# grpc
+prost-build = "0.12.3"
+protobuf-src = "1.1.0"
+tonic-build = "0.10.2"

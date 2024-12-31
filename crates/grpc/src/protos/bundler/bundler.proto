@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "types/types.proto";
+
+package bundler;
+
+enum Mode {
+    AUTO = 0;
+    MANUAL = 1;
+}
+
+message SetBundleModeRequest {
+    Mode mode = 1;
+    uint64 interval = 2;
+}
+
+enum SetBundleModeResult {
+    OK = 0;
+}
+
+message SetBundleModeResponse {
+    SetBundleModeResult res = 1;
+}
+
+message SendBundleNowResponse {
+    types.H256 res = 1;
+}
+
+service Bundler {
+    // debug
+    rpc SetBundleMode(SetBundleModeRequest) returns (SetBundleModeResponse);
+    rpc SendBundleNow(google.protobuf.Empty) returns (SendBundleNowResponse);
+}

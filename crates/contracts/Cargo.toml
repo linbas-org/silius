@@ -1,0 +1,39 @@
+[package]
+name = "silius-contracts"
+version = { workspace = true }
+authors = { workspace = true }
+edition = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+rust-version = { workspace = true }
+keywords = { workspace = true }
+categories = { workspace = true }
+description = "Account abstraction (ERC-4337) smart contract interfaces"
+homepage = "https://github.com/silius-rs/silius/tree/main/crates/contracts"
+
+[dependencies]
+# workspace dependencies
+silius-primitives = { workspace = true }
+
+# eth
+ethers = { workspace = true }
+
+# misc
+eyre = { workspace = true }
+lazy_static = { workspace = true }
+regex = "1.10.2"
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+# tokio
+tokio = { workspace = true }
+
+[build-dependencies]
+# eth
+ethers = { workspace = true, features = ["solc-full"] }
+ethers-solc = "2.0.14"
+
+# misc
+eyre = { workspace = true }

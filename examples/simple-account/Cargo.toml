@@ -1,0 +1,49 @@
+[package]
+name = "examples-simple-account"
+version = { workspace = true }
+authors = { workspace = true }
+edition = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+rust-version = { workspace = true }
+keywords = { workspace = true }
+categories = { workspace = true }
+description = "Account abstraction (ERC-433) examples - simple account"
+homepage = "https://github.com/silius-rs/silius/tree/main/examples/simple-account"
+
+[dependencies]
+# silius dependencies
+silius-contracts = { workspace = true }  # replace with git url: git = "https://github.com/silius-rs/silius.git"
+silius-primitives = { workspace = true } # replace with git url: git = "https://github.com/silius-rs/silius.git"
+silius-tests = { workspace = true }      # replace with git url: git = "https://github.com/silius-rs/silius.git"
+
+# eth
+alloy-primitives = "0.5.4"
+alloy-sol-types = "0.5.4"
+ethers = { workspace = true }
+
+# rpc
+reqwest = { workspace = true }
+
+# tokio
+tokio = { workspace = true }
+
+# misc
+eyre = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+[package.metadata.cargo-udeps.ignore]
+normal = ["silius-contracts", "silius-primitives", "silius-tests"]
+
+[[example]]
+name = "create"
+path = "examples/create.rs"
+
+[[example]]
+name = "deposit"
+path = "examples/deposit.rs"
+
+[[example]]
+name = "transfer"
+path = "examples/transfer.rs"

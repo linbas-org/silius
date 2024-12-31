@@ -1,0 +1,74 @@
+[package]
+name = "silius-p2p"
+version = { workspace = true }
+authors = { workspace = true }
+edition = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+rust-version = { workspace = true }
+keywords = { workspace = true }
+categories = { workspace = true }
+description = "Account abstraction (ERC-4337) P2P implementation"
+homepage = "https://github.com/silius-rs/silius/tree/main/crates/p2p"
+
+[dependencies]
+# workspace dependencies
+silius-primitives = { workspace = true }
+
+# eth
+alloy-chains = { workspace = true }
+discv5 = { workspace = true }
+ethers = { workspace = true }
+ssz_rs = { workspace = true }
+ssz_rs_derive = { workspace = true }
+
+# p2p
+libp2p = { version = "0.53.2", features = [
+    "identify",
+    "yamux",
+    "noise",
+    "gossipsub",
+    "dns",
+    "tcp",
+    "tokio",
+    "secp256k1",
+    "macros",
+    "request-response",
+] }
+libp2p-mplex = { version = "0.41.0" }
+
+# cryptography
+sha2 = "0.10.8"
+tiny-keccak = "2"
+
+# async
+async-trait = { workspace = true }
+futures = { workspace = true }
+futures-bounded = "0.2.3"
+parking_lot = { workspace = true }
+
+# rpc
+reqwest = { workspace = true }
+
+# tokio
+tokio = { workspace = true }
+tokio-util = { version = "0.7.10", features = ["codec"] }
+
+# misc
+delay_map = "0.3.0"
+eyre = { workspace = true }
+lazy_static = { workspace = true }
+lru = "0.12"
+serde_yml = "0.0.6"
+snap = "1.1.1"
+thiserror = { workspace = true }
+tracing = { workspace = true }
+unsigned-varint = { version = "0.8.0", features = ["codec"] }
+
+[dev-dependencies]
+# eth
+ethers = { workspace = true }
+
+# misc
+tempfile = { workspace = true }
+test-log = "0.2.14"

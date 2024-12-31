@@ -1,0 +1,150 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "types/types.proto";
+
+package uopool;
+
+message AddRequest {
+    types.UserOperation uo = 1;
+    types.H160 ep = 2;
+}
+
+enum AddResult {
+    ADDED = 0;
+    NOT_ADDED = 1;
+}
+
+message AddResponse {
+    AddResult res = 1;
+    string data = 2;
+}
+
+message RemoveRequest {
+    repeated types.UserOperation uos = 1;
+    types.H160 ep = 2;
+}
+
+message EstimateUserOperationGasRequest {
+    types.UserOperation uo = 1;
+    types.H160 ep = 2;
+}
+
+enum EstimateUserOperationGasResult {
+    ESTIMATED = 0;
+    NOT_ESTIMATED = 1;
+}
+
+message EstimateUserOperationGasResponse {
+    EstimateUserOperationGasResult res = 1;
+    string data = 2;
+}
+
+message GetAllRequest {
+    types.H160 ep = 1;
+}
+
+message GetAllResponse {
+    repeated types.UserOperation uos = 1;
+}
+
+message GetAllReputationRequest {
+    types.H160 ep = 1;
+}
+
+message GetAllReputationResponse {
+    repeated types.ReputationEntry rep = 1;
+}
+
+enum SetReputationResult {
+    SET = 0;
+    NOT_SET = 1;
+}
+
+message SetReputationRequest {
+    repeated types.ReputationEntry rep = 1;
+    types.H160 ep = 2;
+}
+
+message SetReputationResponse {
+    SetReputationResult res = 1;
+}
+
+enum AddMempoolResult {
+    ADDED_MEMPOOL = 0;
+    NOT_ADDED_MEMPOOL = 1;
+}
+
+message AddMempoolRequest {
+    repeated types.UserOperation uos = 1;
+    types.H160 ep = 2;
+}
+
+message AddMempoolResponse {
+    AddMempoolResult res = 1;
+}
+
+message GetSortedRequest {
+    types.H160 ep = 1;
+}
+
+message GetSortedResponse {
+    repeated types.UserOperation uos = 1;
+    types.StorageMap storage_map = 2;
+}
+
+message UserOperationHashRequest {
+    types.H256 hash = 1;
+}
+
+message GetUserOperationByHashResponse {
+    types.UserOperationSigned user_operation = 1;
+    types.H160 entry_point = 2;
+    types.H256 transaction_hash = 3;
+    types.H256 block_hash = 4;
+    uint64 block_number = 5;
+}
+
+message GetUserOperationReceiptResponse {
+    types.H256 user_operation_hash = 1;
+    types.H160 sender = 2;
+    types.PbU256 nonce = 3;
+    types.H160 paymaster = 4;
+    types.PbU256 actual_gas_cost = 5;
+    types.PbU256 actual_gas_used = 6;
+    bool success = 7;
+    types.TransactionReceipt tx_receipt = 8;
+    repeated types.Log logs = 9;
+    string reason = 10;
+}
+
+message GetStakeInfoRequest {
+    types.H160 addr = 1;
+    types.H160 ep = 2;
+}
+
+message GetStakeInfoResponse {
+    types.StakeInfo info = 1;
+    bool is_staked = 2;
+}
+
+service UoPool {
+    rpc Add(AddRequest) returns (AddResponse);
+    rpc Remove(RemoveRequest) returns (google.protobuf.Empty);
+    rpc GetChainId(google.protobuf.Empty) returns (types.GetChainIdResponse);
+    rpc GetSupportedEntryPoints(google.protobuf.Empty) returns (types.GetSupportedEntryPointsResponse);
+    rpc EstimateUserOperationGas(EstimateUserOperationGasRequest) returns (EstimateUserOperationGasResponse);
+    rpc GetSortedUserOperations(GetSortedRequest) returns (GetSortedResponse);
+    rpc GetUserOperationByHash(UserOperationHashRequest) returns (GetUserOperationByHashResponse);
+    rpc GetUserOperationReceipt(UserOperationHashRequest) returns (GetUserOperationReceiptResponse);
+    rpc GetStakeInfo(GetStakeInfoRequest) returns (GetStakeInfoResponse);
+    
+    // debug
+    rpc GetAll(GetAllRequest) returns (GetAllResponse);
+    rpc ClearMempool(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc ClearReputation(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc Clear(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc GetAllReputation(GetAllReputationRequest) returns (GetAllReputationResponse);
+    rpc SetReputation(SetReputationRequest) returns (SetReputationResponse);
+    rpc AddMempool(AddMempoolRequest) returns (AddMempoolResponse);
+}

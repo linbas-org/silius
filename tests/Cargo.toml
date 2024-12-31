@@ -1,0 +1,36 @@
+[package]
+name = "silius-tests"
+version = { workspace = true }
+authors = { workspace = true }
+edition = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+rust-version = { workspace = true }
+keywords = { workspace = true }
+categories = { workspace = true }
+description = "Silius integration tests"
+homepage = "https://github.com/silius-rs/silius/tree/main/tests"
+
+[dependencies]
+# workspace dependencies
+silius-contracts = { workspace = true }
+silius-mempool = { workspace = true, features = ["mdbx"] } 
+silius-primitives = { workspace = true }
+
+# eth
+alloy-chains = { workspace = true }
+ethers = { workspace = true }
+
+# async
+parking_lot = { workspace = true }
+
+# tokio
+tokio = { workspace = true }
+
+# misc
+eyre = { workspace = true }
+tempfile = { workspace = true }
+
+[dev-dependencies]
+# async
+futures = { workspace = true }
